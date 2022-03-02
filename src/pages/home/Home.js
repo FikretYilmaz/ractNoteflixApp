@@ -12,6 +12,8 @@ const Home = ({ type }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedOptions, setSelectedOptions] = useState('');
   const [genres, setGenres] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     const getRandomList = async () => {
       try {
@@ -20,7 +22,7 @@ const Home = ({ type }) => {
         const api = `${url}/genre/movie/list?${key}`;
         const response = await fetch(api);
         const data = await response.json();
-        const genre = await data.genres.slice(0, 10);
+        const genre = await data.genres;
         setGenres(genre);
       } catch (err) {
         console.error(err);
@@ -28,21 +30,25 @@ const Home = ({ type }) => {
     };
     getRandomList();
   }, []);
+  console.log(searchTerm);
   return (
     <div className="home">
-      <Navbar />
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <Featured
         type={type}
         genres={genres}
         setSelectedCategory={setSelectedCategory}
         setSelectedOptions={setSelectedOptions}
       />
-      {selectedCategory === 'Genre' || selectedCategory === '' ? (
-        genres.map((genre, index) => <List key={index} genre={genre} />)
+      {selectedCategory === 'All Genres' || selectedCategory === '' ? (
+        genres.map((genre, index) => (
+          <List key={index} genre={genre} searchTerm={searchTerm} />
+        ))
       ) : (
         <List
           selectedCategory={selectedCategory}
           selectedOptions={selectedOptions}
+          searchTerm={searchTerm}
         />
       )}
     </div>

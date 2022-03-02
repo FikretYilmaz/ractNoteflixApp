@@ -51,6 +51,25 @@
         margin: 0 15px;
         cursor: pointer;
       }
+      .inputContainer {
+        position: relative;
+        padding: 0;
+        margin: 0 10px;
+
+        #input {
+          height: 20px;
+          margin: 0;
+          padding-left: 30px;
+        }
+        #inputIcon {
+          position: absolute;
+          bottom: 1px;
+          left: 170px;
+          width: 25px;
+          height: 25px;
+          color: black;
+        }
+      }
       img {
         width: 30px;
         height: 30px;

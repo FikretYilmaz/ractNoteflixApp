@@ -13,21 +13,44 @@ const Featured = ({
       {type && (
         <div className="category">
           <span>{type === 'movies' ? 'Movies' : 'Series'}</span>
-          <select
-            name="genre"
-            id="genre"
-            onChange={(e) => {
-              setSelectedCategory(e.target.value);
-              setSelectedOptions(e.target.options[e.target.selectedIndex].text);
-            }}
-          >
-            <option>Genre</option>
-            {genres.map((genre, index) => (
-              <option key={index} value={genre.id}>
-                {genre.name}
-              </option>
-            ))}
-          </select>
+          {type === 'movies' && (
+            <select
+              name="genre"
+              id="genre"
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setSelectedOptions(
+                  e.target.options[e.target.selectedIndex].text,
+                );
+              }}
+            >
+              <option>All Genres</option>
+              {genres.map((genre, index) => (
+                <option key={index} value={genre.id}>
+                  {genre.name}
+                </option>
+              ))}
+            </select>
+          )}
+          {type === 'series' && (
+            <select
+              name="genre"
+              id="genre"
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setSelectedOptions(
+                  e.target.options[e.target.selectedIndex].text,
+                );
+              }}
+            >
+              <option>All Genres</option>
+              {genres.map((genre, index) => (
+                <option key={index} value={genre.id}>
+                  {genre.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
       )}
       <img

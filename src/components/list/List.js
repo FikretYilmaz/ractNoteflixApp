@@ -9,7 +9,7 @@ import GenreItem from '../genreItem/GenreItem';
 import ListItem from '../listItem/ListItem';
 import './list.scss';
 
-const List = ({ genre, selectedCategory, selectedOptions }) => {
+const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
   const [slideNumber, setSlideNumber] = useState(false);
   const [isMoved, setIsMoved] = useState(0);
   const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
@@ -19,8 +19,26 @@ const List = ({ genre, selectedCategory, selectedOptions }) => {
   const [movieList, setMovieList] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
 
+  // useEffect(() => {
+  //   const getMovieByName = async () => {
+  //     try {
+  //       const key = API_KEY;
+  //       const url = `https://api.themoviedb.org/3`;
+  //       const api = `${url}/search/movie?${key}&query=${searchTerm}`;
+  //       const response = await fetch(api);
+  //       const data = await response.json();
+  //       const movie = await data.results;
+  //       console.log(movie);
+  //       console.log(searchTerm);
+  //       setSelectedMovies(movie);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+  //   getMovieByName();
+  // }, [searchTerm]);
+
   useEffect(() => {
-    
     const getRandomListOfMovies = async () => {
       try {
         const key = API_KEY;
@@ -43,7 +61,7 @@ const List = ({ genre, selectedCategory, selectedOptions }) => {
       }
     };
     getRandomListOfMovies();
-  }, [selectedCategory, genre]);
+  }, [selectedCategory, genre, selectedOptions]);
 
   const handleClick = (direction) => {
     setIsMoved(true);

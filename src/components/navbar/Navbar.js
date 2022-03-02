@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 
-const Navbar = () => {
+const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [isScrolled, setItScrolled] = useState(false);
   window.onscroll = () => {
     setItScrolled(window.pageYOffset === 0 ? false : true);
@@ -12,6 +12,15 @@ const Navbar = () => {
       window.onscroll = null;
     };
   };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
+  const handleOnChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
+
   return (
     <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
       <div className="container">
@@ -31,7 +40,19 @@ const Navbar = () => {
           <span>My Notes</span>
         </div>
         <div className="right">
-          <Search className="icon" />
+          <span className="icon inputContainer" id="">
+            <form onSubmit={handleOnSubmit}>
+              <input
+                type="text"
+                placeholder="Search..."
+                id="input"
+                value={searchTerm}
+                onChange={handleOnChange}
+              ></input>
+              <Search id="inputIcon" />
+            </form>
+          </span>
+
           <span>KID</span>
           <Notifications className="icon" />
           <img
