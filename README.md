@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # General Information About App
 
 This is a Noteflix App that allows to take notes about movies and series.
