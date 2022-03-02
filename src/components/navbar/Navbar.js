@@ -21,13 +21,11 @@ const Navbar = () => {
             <span>Home</span>
           </Link>
           <Link to="/series" className="link">
-            <span>Series</span>
+            <span className="mainNavbarLinks">Series</span>
           </Link>
           <Link to="/movies" className="link">
-            <span>Movies</span>
+            <span className="mainNavbarLinks">Movies</span>
           </Link>
-
-          <span>New and Popular</span>
 
           <span>My List</span>
           <span>My Notes</span>

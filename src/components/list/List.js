@@ -12,6 +12,7 @@ import './list.scss';
 const List = ({ genre, selectedCategory, selectedOptions }) => {
   const [slideNumber, setSlideNumber] = useState(false);
   const [isMoved, setIsMoved] = useState(0);
+  const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
 
   const listRef = useRef();
 
@@ -19,6 +20,7 @@ const List = ({ genre, selectedCategory, selectedOptions }) => {
   const [selectedMovies, setSelectedMovies] = useState([]);
 
   useEffect(() => {
+    
     const getRandomListOfMovies = async () => {
       try {
         const key = API_KEY;
@@ -28,7 +30,6 @@ const List = ({ genre, selectedCategory, selectedOptions }) => {
           const response = await fetch(api);
           const data = await response.json();
           const movie = await data.results.slice(0, 10);
-
           setMovieList(movie);
         } else {
           const api = `${url}/discover/movie?${key}&with_genres=${selectedCategory}&page=1`;
@@ -51,7 +52,7 @@ const List = ({ genre, selectedCategory, selectedOptions }) => {
       setSlideNumber(slideNumber - 1);
       listRef.current.style.transform = `translateX(${230 + distance}px)`;
     }
-    if (direction === 'right' && slideNumber < 10) {
+    if (direction === 'right' && slideNumber < 10 - clickLimit) {
       setSlideNumber(slideNumber + 1);
       listRef.current.style.transform = `translateX(${-230 + distance}px)`;
     }

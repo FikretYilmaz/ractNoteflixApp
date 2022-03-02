@@ -35,7 +35,7 @@ const Featured = ({
         alt="stranger"
       />
       <div className="info">
-        <img src="" alt="kill" />
+        {/* <img src="" alt="kill" /> */}
         <span className="desc"></span>
         <div className="buttons">
           <button className="play">
