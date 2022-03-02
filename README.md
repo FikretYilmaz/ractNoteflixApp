@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # General Information About App
 
 This is a Noteflix App that allows to take notes about movies and series.
@@ -39,3 +40,6 @@ You may also see any lint errors in the console.
 
 Here is the first page of application
 ![layout design image](Mainpage.jpg)
+=======
+
+>>>>>>> 4f77f15e6d71c720c0290bf3489ca7eb2640e79a
