@@ -54,7 +54,8 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
           const response = await fetch(api);
           const data = await response.json();
           const movie = await data.results;
-          setSelectedMovies(movie);
+          // setSelectedMovies(movie);
+          setMovieList(movie);
         }
       } catch (err) {
         console.error(err);
@@ -83,7 +84,7 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
           <span className="categoryTitle">{selectedOptions}</span>
           <div className="wrapper2">
             <div className="container2" ref={listRef}>
-              {selectedMovies.map((movie, index) => (
+              {movieList.map((movie, index) => (
                 <GenreItem
                   genreName={selectedOptions}
                   index={index}

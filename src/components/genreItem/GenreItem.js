@@ -9,12 +9,15 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import API_KEY from '../../js/apiKey';
+import Note from '../note/Note';
+
 import './genreItem.scss';
 
 const GenreItem = ({ genreName, movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
   const [movieDuration, setMovieDuration] = useState(null);
+  const [showNoteComponent, setShowNoteComponent] = useState('none');
   const key = API_KEY;
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const GenreItem = ({ genreName, movie }) => {
       }
     };
     getTRailerKey();
-  }, [movie.id]);
+  }, [movie.id, key]);
 
   useEffect(() => {
     const getMovieDuration = async () => {
@@ -47,6 +50,10 @@ const GenreItem = ({ genreName, movie }) => {
     };
     getMovieDuration();
   }, []);
+
+  const handleNote = async () => {
+    setShowNoteComponent('noteItem');
+  };
 
   return (
     <div
@@ -67,26 +74,24 @@ const GenreItem = ({ genreName, movie }) => {
             height="140px"
             controls={true}
             url={
-              (trailerKey === null || trailerKey === undefined
-                ? 'https://www.youtube.com/watch?v=1D_qK6jWNAM'
-                : `https://www.youtube.com/watch?v=${trailerKey.key}`) ||
-              (trailerKey === undefined
-                ? 'https://www.youtube.com/watch?v=1D_qK6jWNAM'
-                : `https://www.youtube.com/watch?v=${trailerKey.key}`)
+              trailerKey
+                ? `https://www.youtube.com/watch?v=${trailerKey.key}`
+                : `https://www.youtube.com/watch?v=1D_qK6jWNAM`
             }
           />
 
           <div className="itemInfo">
             <div className="icons">
-              <Link to={{ pathname: 'watch', trailerKey: trailerKey }}>
+              <Link to={trailerKey ? `/watch/${trailerKey.key}` : '/'}>
                 <PlayArrow className="icon" />
               </Link>
-              <Add className="icon" />
-              <ThumbUpAltOutlined className="icon" />
-              <ThumbDownAltOutlined className="icon" />
-              <Link to="note">
-                <NoteAltOutlined className="icon"></NoteAltOutlined>
-              </Link>
+              <NoteAltOutlined onClick={handleNote} className="icon" />
+
+              <Note
+                showNoteComponent={showNoteComponent}
+                setShowNoteComponent={setShowNoteComponent}
+                movie={movie}
+              />
             </div>
             <div className="itemInfoTop">
               <span>{movieDuration} Mins</span>

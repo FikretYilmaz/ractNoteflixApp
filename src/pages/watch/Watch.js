@@ -1,15 +1,12 @@
 import { ArrowBackOutlined } from '@mui/icons-material';
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import './watch.scss';
 const Watch = () => {
-  const location = useLocation();
+  const { trailerKey } = useParams();
 
-  const { key } = location;
-  const trailer = 'https://www.youtube.com/watch?v=1D_qK6jWNAM';
-  console.log(location);
-  console.log(`https://www.youtube.com/watch?v=${key}`);
+  const url = `https://www.youtube.com/watch?v=${trailerKey}`;
   return (
     <div className="watch">
       <Link to="/">
@@ -18,21 +15,13 @@ const Watch = () => {
           Home
         </div>
       </Link>
-      {/* <iframe
-        className="video"
-        width="100%"
-        height="100%"
-        src={`https://www.youtube.com/embed/${key}`}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe> */}
+
       <ReactPlayer
+        playing={true}
         className="video"
         width="100%"
         height="100vh"
-        url={trailer}
+        url={url}
       />
     </div>
   );

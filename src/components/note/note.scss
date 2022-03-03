@@ -1,55 +1,37 @@
-.listItem {
-  width: 225px;
-  height: 120px;
+.none {
+  display: none;
+}
+.noteItem {
+  width: 100%;
+  height: 100%;
   background-color: var(--main-color);
-  margin-right: 5px;
-  overflow: hidden;
+  top: 0;
+  left: 0;
+
   cursor: pointer;
   color: white;
   -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.08);
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
+  position: absolute;
+  z-index: 77;
 
-  img {
-    display: none;
-  }
   .itemInfo {
     display: flex;
     flex-direction: column;
-    padding: 5px;
 
-    .icons {
+    .userText {
+      color: white;
+      background-color: var(--main-color);
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+    }
+    .actionBottom {
+      margin-right: 10px;
       display: flex;
-      margin-bottom: 10px;
-
-      .icon {
-        border: 2px solid white;
-        padding: 5px;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-    }
-    .itemInfoTop {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 14;
-      font-weight: 600;
-      color: gray;
-
-      .limit {
-        border: 1px solid gray;
-        padding: 1px 3px;
-        margin: 0 10px;
-      }
-    }
-    .desc {
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-    .genre {
-      font-size: 14px;
-      color: lightgray;
+      justify-content: flex-end;
     }
   }
 }
