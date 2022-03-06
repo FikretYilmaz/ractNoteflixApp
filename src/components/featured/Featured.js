@@ -12,7 +12,14 @@ const Featured = ({
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === 'movies' ? 'Movies' : 'Series'}</span>
+          <span>
+            {(type === 'movies' && 'Movies') ||
+              (type === 'series' && 'Series') ||
+              (type === 'myNotes' && 'My Notes') ||
+              (type === 'search' && 'Search')}
+          </span>
+          {type === 'search' && <div></div>}
+          {type === 'myNotes' && <div></div>}
           {type === 'movies' && (
             <select
               name="genre"

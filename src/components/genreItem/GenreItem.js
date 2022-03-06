@@ -13,13 +13,13 @@ import Note from '../note/Note';
 
 import './genreItem.scss';
 
-const GenreItem = ({ genreName, movie }) => {
+const GenreItem = ({ genreName, movie,notes }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
   const [movieDuration, setMovieDuration] = useState(null);
   const [showNoteComponent, setShowNoteComponent] = useState('none');
   const key = API_KEY;
-
+ 
   useEffect(() => {
     const getTRailerKey = async () => {
       try {
@@ -88,9 +88,11 @@ const GenreItem = ({ genreName, movie }) => {
               <NoteAltOutlined onClick={handleNote} className="icon" />
 
               <Note
+                notes={notes}
                 showNoteComponent={showNoteComponent}
                 setShowNoteComponent={setShowNoteComponent}
                 movie={movie}
+                
               />
             </div>
             <div className="itemInfoTop">

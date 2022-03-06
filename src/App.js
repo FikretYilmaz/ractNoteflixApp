@@ -26,6 +26,8 @@ const App = () => {
         <React.Fragment>
           <Route path="/movies" element={<Home type="movies" />}></Route>
           <Route path="/series" element={<Home type="series" />}></Route>
+          <Route path="/search" element={<Home type="search" />}></Route>
+          <Route path="/myNotes" element={<Home type="myNotes" />}></Route>
           <Route path="/watch/:trailerKey" element={<Watch />}></Route>
         </React.Fragment>
       )}

@@ -9,7 +9,7 @@ import GenreItem from '../genreItem/GenreItem';
 import ListItem from '../listItem/ListItem';
 import './list.scss';
 
-const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
+const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes }) => {
   const [slideNumber, setSlideNumber] = useState(false);
   const [isMoved, setIsMoved] = useState(0);
   const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
@@ -18,7 +18,7 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
 
   const [movieList, setMovieList] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
-
+  const notes = { movieId: 476669, movieNote: 'try3' };
   // useEffect(() => {
   //   const getMovieByName = async () => {
   //     try {
@@ -43,6 +43,9 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
       try {
         const key = API_KEY;
         const url = `https://api.themoviedb.org/3`;
+        if (searchMovie) {
+          setMovieList(searchMovie);
+        }
         if (!selectedCategory) {
           const api = `${url}/discover/movie?${key}&with_genres=${genre.id}`;
           const response = await fetch(api);
@@ -79,7 +82,7 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
 
   return (
     <>
-      {selectedCategory ? (
+      {selectedCategory || searchMovie ? (
         <div className="category">
           <span className="categoryTitle">{selectedOptions}</span>
           <div className="wrapper2">
@@ -90,6 +93,7 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
                   index={index}
                   key={index}
                   movie={movie}
+                  notes={notes}
                 />
               ))}
             </div>
@@ -111,6 +115,7 @@ const List = ({ genre, selectedCategory, selectedOptions, searchTerm }) => {
                   index={index}
                   key={index}
                   movie={movie}
+                  notes={notes}
                 />
               ))}
             </div>
