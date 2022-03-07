@@ -4,7 +4,8 @@ import Navbar from '../../components/navbar/Navbar';
 import Featured from '../../components/featured/Featured';
 import List from '../../components/list/List';
 import API_KEY from '../../js/apiKey';
-
+const key = API_KEY;
+const url = `https://api.themoviedb.org/3`;
 const Home = ({ type }) => {
   const firstUpdate = useRef(true);
 
@@ -17,8 +18,6 @@ const Home = ({ type }) => {
   useEffect(() => {
     const getAllGenres = async () => {
       try {
-        const key = API_KEY;
-        const url = `https://api.themoviedb.org/3`;
         const api = `${url}/genre/movie/list?${key}`;
         const response = await fetch(api);
         const data = await response.json();
@@ -38,8 +37,6 @@ const Home = ({ type }) => {
           firstUpdate.current = false;
           return;
         } else {
-          const key = API_KEY;
-          const url = `https://api.themoviedb.org/3`;
           const api = `${url}/search/movie?${key}&query=${searchTerm}`;
           const response = await fetch(api);
           const data = await response.json();

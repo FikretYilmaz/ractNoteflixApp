@@ -1,6 +1,10 @@
 import { InfoOutlined, PlayArrow } from '@mui/icons-material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './featured.scss';
+import API_KEY from '../../js/apiKey';
+import { Link } from 'react-router-dom';
+const key = API_KEY;
+const url = `https://api.themoviedb.org/3`;
 
 const Featured = ({
   type,
@@ -8,6 +12,40 @@ const Featured = ({
   setSelectedCategory,
   setSelectedOptions,
 }) => {
+  const [initialMovie, setInitialMovie] = useState('');
+  const [trailerKey, setTrailerKey] = useState(null);
+
+  useEffect(() => {
+    const getRandomInitialMovie = async () => {
+      try {
+        const api = `${url}/discover/movie?${key}`;
+        const response = await fetch(api);
+        const data = await response.json();
+        const movie = await data.results;
+        setInitialMovie(movie[Math.floor(Math.random() * movie.length - 1)]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getRandomInitialMovie();
+  }, []);
+
+  useEffect(() => {
+    const getTrailerKey = async () => {
+      try {
+        const api = `https://api.themoviedb.org/3/movie/${initialMovie.id}/videos?${key}`;
+        const response = await fetch(api);
+        const data = await response.json();
+        const link = await data.results;
+        const singleKey = await link[0];
+        setTrailerKey(singleKey);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getTrailerKey();
+  }, [initialMovie]);
+
   return (
     <div className="featured">
       {type && (
@@ -60,22 +98,27 @@ const Featured = ({
           )}
         </div>
       )}
+
       <img
-        src="https://fever.imgix.net/plan/photo/cf44c2fc-d83e-11eb-9522-06551cb39bc6.jpg?auto=compress&auto=format&fm=jpg&w=720&h=720"
+        src={`https://image.tmdb.org/t/p/original/${
+          initialMovie?.backdrop_path || initialMovie?.poster_path
+        }`}
         alt="stranger"
       />
       <div className="info">
         <span className="desc"></span>
         <div className="buttons">
-          <button className="play">
-            <PlayArrow />
-            <span>Play</span>
-          </button>
-          <button className="more">
-            <InfoOutlined />
-            <span>Info</span>
-          </button>
+          <Link
+            className="play"
+            to={trailerKey ? `/watch/${trailerKey.key}` : '/'}
+          >
+            <button>
+              <PlayArrow />
+              <span>Play</span>
+            </button>
+          </Link>
         </div>
+        <span>{initialMovie.overview}</span>
       </div>
     </div>
   );
