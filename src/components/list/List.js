@@ -9,7 +9,15 @@ import GenreItem from '../genreItem/GenreItem';
 import ListItem from '../listItem/ListItem';
 import './list.scss';
 
-const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes }) => {
+const List = ({
+  genre,
+  selectedCategory,
+  selectedOptions,
+  searchMovie,
+  savedNote,
+}) => {
+  const key = API_KEY;
+  const url = `https://api.themoviedb.org/3`;
   const [slideNumber, setSlideNumber] = useState(false);
   const [isMoved, setIsMoved] = useState(0);
   const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
@@ -17,55 +25,63 @@ const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes })
   const listRef = useRef();
 
   const [movieList, setMovieList] = useState([]);
-  const [selectedMovies, setSelectedMovies] = useState([]);
-  const notes = { movieId: 476669, movieNote: 'try3' };
-  // useEffect(() => {
-  //   const getMovieByName = async () => {
-  //     try {
-  //       const key = API_KEY;
-  //       const url = `https://api.themoviedb.org/3`;
-  //       const api = `${url}/search/movie?${key}&query=${searchTerm}`;
-  //       const response = await fetch(api);
-  //       const data = await response.json();
-  //       const movie = await data.results;
-  //       console.log(movie);
-  //       console.log(searchTerm);
-  //       setSelectedMovies(movie);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   getMovieByName();
-  // }, [searchTerm]);
-
+  const [savedMovieList, setSavedMovieList] = useState([]);
   useEffect(() => {
-    const getRandomListOfMovies = async () => {
+    const getMoviesBySearching = async () => {
       try {
-        const key = API_KEY;
-        const url = `https://api.themoviedb.org/3`;
         if (searchMovie) {
           setMovieList(searchMovie);
         }
-        if (!selectedCategory) {
-          const api = `${url}/discover/movie?${key}&with_genres=${genre.id}`;
-          const response = await fetch(api);
-          const data = await response.json();
-          const movie = await data.results.slice(0, 10);
-          setMovieList(movie);
-        } else {
-          const api = `${url}/discover/movie?${key}&with_genres=${selectedCategory}&page=1`;
-          const response = await fetch(api);
-          const data = await response.json();
-          const movie = await data.results;
-          // setSelectedMovies(movie);
-          setMovieList(movie);
-        }
+      } catch (err) {
+        console.error();
+      }
+    };
+    getMoviesBySearching();
+  }, [searchMovie]);
+
+  useEffect(() => {
+    const getMoviesBySingleGenre = async () => {
+      try {
+        const api = `${url}/discover/movie?${key}&with_genres=${genre.id}`;
+        const response = await fetch(api);
+        const data = await response.json();
+        const movie = await data.results.slice(0, 10);
+        setMovieList(movie);
+      } catch (err) {
+        console.error();
+      }
+    };
+    getMoviesBySingleGenre();
+  }, [genre]);
+
+  useEffect(() => {
+    const getAllGenresOfMovies = async () => {
+      try {
+        const api = `${url}/discover/movie?${key}&with_genres=${selectedCategory}&page=1`;
+        const response = await fetch(api);
+        const data = await response.json();
+        const movie = await data.results;
+        setMovieList(movie);
       } catch (err) {
         console.error(err);
       }
     };
-    getRandomListOfMovies();
-  }, [selectedCategory, genre, selectedOptions]);
+    getAllGenresOfMovies();
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    const getSavedMovieNotes = async () => {
+      try {
+        const api = `${url}/movie/${savedNote.movieId}?${key}`;
+        const response = await fetch(api);
+        const movie = await response.json();
+        setSavedMovieList((prev) => [...prev, movie]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSavedMovieNotes();
+  }, []);
 
   const handleClick = (direction) => {
     setIsMoved(true);
@@ -82,7 +98,23 @@ const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes })
 
   return (
     <>
-      {selectedCategory || searchMovie ? (
+      {savedNote && (
+        <div className="savedMovieCategory">
+          <div className="wrapper2">
+            <div className="container2" ref={listRef}>
+              {savedMovieList.map((movie, index) => (
+                <GenreItem
+                  genreName={selectedOptions}
+                  key={index}
+                  movie={movie}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {(selectedCategory || searchMovie) && (
         <div className="category">
           <span className="categoryTitle">{selectedOptions}</span>
           <div className="wrapper2">
@@ -90,16 +122,15 @@ const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes })
               {movieList.map((movie, index) => (
                 <GenreItem
                   genreName={selectedOptions}
-                  index={index}
                   key={index}
                   movie={movie}
-                  notes={notes}
                 />
               ))}
             </div>
           </div>
         </div>
-      ) : (
+      )}
+      {genre && (
         <div className="list">
           <span className="listTitle"> {genre.name}</span>
           <div className="wrapper">
@@ -115,7 +146,6 @@ const List = ({ genre, selectedCategory, selectedOptions, searchMovie,myNotes })
                   index={index}
                   key={index}
                   movie={movie}
-                  notes={notes}
                 />
               ))}
             </div>

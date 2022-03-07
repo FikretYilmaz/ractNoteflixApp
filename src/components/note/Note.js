@@ -6,6 +6,7 @@ import './note.scss';
 
 const Note = ({ movie, showNoteComponent, setShowNoteComponent }) => {
   const [noteValue, setNoteValue] = useState('');
+
   const { notesList, setNotesList, handleDeleteMovieNote } =
     useContext(noteContext);
 

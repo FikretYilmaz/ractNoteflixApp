@@ -1,10 +1,4 @@
-import {
-  Add,
-  NoteAltOutlined,
-  PlayArrow,
-  ThumbDownAltOutlined,
-  ThumbUpAltOutlined,
-} from '@mui/icons-material';
+import { NoteAltOutlined, PlayArrow } from '@mui/icons-material';
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
@@ -13,15 +7,15 @@ import Note from '../note/Note';
 
 import './genreItem.scss';
 
-const GenreItem = ({ genreName, movie,notes }) => {
+const GenreItem = ({ genreName, movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
   const [movieDuration, setMovieDuration] = useState(null);
   const [showNoteComponent, setShowNoteComponent] = useState('none');
   const key = API_KEY;
- 
+
   useEffect(() => {
-    const getTRailerKey = async () => {
+    const getTrailerKey = async () => {
       try {
         const url = `http://api.themoviedb.org/3/movie/${movie.id}/videos?${key}`;
         const response = await fetch(url);
@@ -33,7 +27,7 @@ const GenreItem = ({ genreName, movie,notes }) => {
         console.error(err);
       }
     };
-    getTRailerKey();
+    getTrailerKey();
   }, [movie.id, key]);
 
   useEffect(() => {
@@ -88,16 +82,14 @@ const GenreItem = ({ genreName, movie,notes }) => {
               <NoteAltOutlined onClick={handleNote} className="icon" />
 
               <Note
-                notes={notes}
                 showNoteComponent={showNoteComponent}
                 setShowNoteComponent={setShowNoteComponent}
                 movie={movie}
-                
               />
             </div>
             <div className="itemInfoTop">
               <span>{movieDuration} Mins</span>
-              <span className="limit">+16</span>
+
               <span>{movie.release_date}</span>
             </div>
             <div className="desc">{movie.overview}</div>

@@ -6,7 +6,7 @@ import API_KEY from '../../js/apiKey';
 import Note from '../note/Note';
 import './listItem.scss';
 
-const ListItem = ({ genreName, index, movie, notes }) => {
+const ListItem = ({ genreName, index, movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
   const [movieDuration, setMovieDuration] = useState(null);
@@ -86,12 +86,10 @@ const ListItem = ({ genreName, index, movie, notes }) => {
                 showNoteComponent={showNoteComponent}
                 setShowNoteComponent={setShowNoteComponent}
                 movie={movie}
-                notes={notes}
               />
             </div>
             <div className="itemInfoTop">
               <span>{movieDuration} Mins</span>
-              <span className="limit">+16</span>
               <span>{movie.release_date}</span>
             </div>
             <div className="desc">{movie.overview}</div>

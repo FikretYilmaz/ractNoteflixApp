@@ -20,13 +20,6 @@ const Navbar = ({ searchTerm, setSearchTerm, setMyNotes }) => {
     const value = e.target.value;
     setSearchTerm(value);
   };
-  const handleMyNotes = () => {
-    const initialMyNotes = localStorage
-      .getItem('movieList')
-      ?.JSON.parse(localStorage.getItem('movieList'));
-
-    console.log(initialMyNotes);
-  };
 
   return (
     <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
@@ -46,9 +39,9 @@ const Navbar = ({ searchTerm, setSearchTerm, setMyNotes }) => {
           <Link to="/search" className="link">
             <span className="mainNavbarLinks">Search</span>
           </Link> */}
-          {/* <Link onClick={handleMyNotes} to="/myNotes" className="link">
+          <Link to="/myNotes" className="link">
             <span className="mainNavbarLinks">My Notes</span>
-          </Link> */}
+          </Link>
         </div>
         <div className="right">
           <span className="icon inputContainer" id="">
