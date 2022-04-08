@@ -26,6 +26,7 @@ const List = ({
 
   const [movieList, setMovieList] = useState([]);
   const [savedMovieList, setSavedMovieList] = useState([]);
+
   useEffect(() => {
     const getMoviesBySearching = async () => {
       try {

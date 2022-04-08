@@ -1,4 +1,3 @@
-
 # General Information About App
 
 This is a Noteflix App that allows to take notes about movies and series.
@@ -23,8 +22,13 @@ I worked with [themoviedb][https://api.themoviedb.org/3] API to get the data.
 
 - [ ]Using the server to save data.
 - [ ]User can like the movies and add them to the like movies
+- [ ]User can do same action for Series
 
 ## Available Scripts
+
+Foe installing dependency, in the project directory, you can run:
+
+### `npm install`
 
 In the project directory, you can run:
 
@@ -41,5 +45,3 @@ You may also see any lint errors in the console.
 Here is the first page of application
 ![layout design image](Mainpage.jpg)
 =======
-
-

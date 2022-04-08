@@ -1,6 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+import { authContext } from '../../context/authContext';
 import './register.scss';
 const Register = () => {
+  const { setUser } = useContext(authContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,6 +15,7 @@ const Register = () => {
   };
   const handleFinish = () => {
     setPassword(passwordRef.current.value);
+    setUser(true);
   };
   return (
     <div className="register">

@@ -4,11 +4,13 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Watch from './pages/watch/Watch';
-import React from 'react';
+import React, { useContext } from 'react';
 import MyNotesList from './pages/myNotesList/MyNotesList';
+import { authContext } from './context/authContext';
 
 const App = () => {
-  const user = true;
+  const { user } = useContext(authContext);
+  // const user = false;
   return (
     <Routes>
       <Route
@@ -17,11 +19,11 @@ const App = () => {
       ></Route>
       <Route
         path="/register"
-        element={!user ? <Register /> : <Navigate to="/home" />}
+        element={!user ? <Register /> : <Navigate to="/" />}
       ></Route>
       <Route
         path="/login"
-        element={!user ? <Login /> : <Navigate to="/home" />}
+        element={!user ? <Login /> : <Navigate to="/" />}
       ></Route>
       {user && (
         <React.Fragment>
