@@ -41,7 +41,10 @@
     }
   }
 }
-
+.savedMovieCategory {
+  display: flex;
+  flex-direction: row;
+}
 .category {
   width: 100%;
   margin-top: 10px;

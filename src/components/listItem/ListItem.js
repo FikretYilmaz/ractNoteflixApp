@@ -90,7 +90,6 @@ const ListItem = ({ genreName, index, movie }) => {
             </div>
             <div className="itemInfoTop">
               <span>{movieDuration} Mins</span>
-              <span className="limit">+16</span>
               <span>{movie.release_date}</span>
             </div>
             <div className="desc">{movie.overview}</div>

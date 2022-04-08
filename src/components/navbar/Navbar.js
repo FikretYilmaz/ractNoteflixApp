@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 
-const Navbar = ({ searchTerm, setSearchTerm }) => {
+const Navbar = ({ searchTerm, setSearchTerm, setMyNotes }) => {
   const [isScrolled, setItScrolled] = useState(false);
   window.onscroll = () => {
     setItScrolled(window.pageYOffset === 0 ? false : true);
@@ -35,9 +35,13 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           <Link to="/movies" className="link">
             <span className="mainNavbarLinks">Movies</span>
           </Link>
-
-          <span>My List</span>
-          <span>My Notes</span>
+          {/* 
+          <Link to="/search" className="link">
+            <span className="mainNavbarLinks">Search</span>
+          </Link> */}
+          <Link to="/myNotes" className="link">
+            <span className="mainNavbarLinks">My Notes</span>
+          </Link>
         </div>
         <div className="right">
           <span className="icon inputContainer" id="">
@@ -53,7 +57,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             </form>
           </span>
 
-          <span>KID</span>
           <Notifications className="icon" />
           <img
             src="https://thumbs.dreamstime.com/b/tiger-mascot-gaming-character-logo-vector-tiger-mascot-gaming-character-logo-220769949.jpg"
