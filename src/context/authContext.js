@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 
 export const authContext = createContext();
 
 export const AuthContextProvider = (props) => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
 
   const handleGivePermission = () => {
     setUser(true);
