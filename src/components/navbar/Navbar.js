@@ -1,8 +1,8 @@
-import { ArrowDropDown, Notifications, Search } from '@mui/icons-material';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowDropDown, Notifications, Search } from "@mui/icons-material";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import './navbar.scss';
+import "./navbar.scss";
 
 const Navbar = ({ searchTerm, setSearchTerm, setMyNotes }) => {
   const [isScrolled, setItScrolled] = useState(false);
@@ -22,13 +22,13 @@ const Navbar = ({ searchTerm, setSearchTerm, setMyNotes }) => {
   };
 
   return (
-    <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
+    <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
           <img src="../../img/main-logo.png" alt="notefilm-Logo" />
-          <Link to="/" className="link">
+          <a href="/" className="link">
             <span>Home</span>
-          </Link>
+          </a>
           <Link to="/series" className="link">
             <span className="mainNavbarLinks">Series</span>
           </Link>

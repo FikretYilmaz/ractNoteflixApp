@@ -1,16 +1,16 @@
-import './app.scss';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Register from './pages/register/Register';
-import Watch from './pages/watch/Watch';
-import React, { useContext } from 'react';
-import MyNotesList from './pages/myNotesList/MyNotesList';
-import { authContext } from './context/authContext';
+import "./app.scss";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Watch from "./pages/watch/Watch";
+import React, { useContext } from "react";
+import MyNotesList from "./pages/myNotesList/MyNotesList";
+import { authContext } from "./context/authContext";
 
 const App = () => {
   const { user } = useContext(authContext);
-  // const user = false;
+
   return (
     <Routes>
       <Route
